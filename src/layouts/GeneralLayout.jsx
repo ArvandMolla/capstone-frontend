@@ -1,0 +1,38 @@
+import { Input, Space } from "antd";
+import { Button } from "antd";
+import TopNav from "../components/TopNav";
+import Home from "../views/Home";
+
+const { Search } = Input;
+export default function GeneralLayout(props) {
+  return (
+    <div>
+      <TopNav />
+      <div className="top">
+        <div className="search-container">
+          <div className="big-logo-container">
+            <img
+              src="../img/30seconds-logo.png"
+              alt="30seconds logo"
+              className="big-logo"
+            />
+          </div>
+          <div className="title">
+            <h1>Buy and sale in 30 seconds!</h1>
+          </div>
+          <div className="search">
+            <Search placeholder="explore sale videos ..." size="large" />
+          </div>
+        </div>
+        <div className="green"></div>
+
+        <div className="yellow-container">
+          <div className="yellow"></div>
+        </div>
+      </div>
+      <div className="bottom-container">
+        <div className="bottom">{props.view}</div>
+      </div>
+    </div>
+  );
+}
