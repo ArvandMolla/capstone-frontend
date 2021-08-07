@@ -25,6 +25,7 @@
 
 .menu-item {
   margin-left: 25px;
+  cursor: pointer;
 }
 
 .header-container {
@@ -79,12 +80,13 @@
 
 .yellow {
   background-color: rgb(255, 255, 255);
-  height: 80px;
+  height: 85px;
   width: 94%;
   /* margin-left: 100px; */
   /* margin-right: 100px; */
   position: absolute;
-  bottom: 0px;
+  bottom: -5px;
+  border-radius: 5px;
 }
 
 .bottom-container {
@@ -100,6 +102,10 @@
 .search-container {
   position: absolute;
   top: 0px;
+}
+
+.search {
+  z-index: 10;
 }
 
 .big-logo-container {

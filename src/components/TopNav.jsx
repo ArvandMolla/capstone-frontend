@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { withRouter } from "react-router-dom";
 
-const TopNav = () => {
+const TopNav = (props) => {
   const [scroll, setScroll] = useState(0);
 
   window.onscroll = () => {
@@ -26,12 +27,24 @@ const TopNav = () => {
       </div>
 
       <div className="top-nav-menu-container">
-        <span className="menu-item">Home</span>
-        <span className="menu-item">Post your video</span>
-        <span className="menu-item">Login</span>
+        <span className="menu-item" onClick={() => props.history.push("/")}>
+          Home
+        </span>
+        <span
+          className="menu-item"
+          onClick={() => props.history.push("/post-video")}
+        >
+          Post your video
+        </span>
+        <span
+          className="menu-item"
+          onClick={() => props.history.push("/login")}
+        >
+          Login
+        </span>
       </div>
     </div>
   );
 };
 
-export default TopNav;
+export default withRouter(TopNav);

@@ -20,8 +20,12 @@ export default function GeneralLayout(props) {
           <div className="title">
             <h1>Buy and sale in 30 seconds!</h1>
           </div>
-          <div className="search">
-            <Search placeholder="explore sale videos ..." size="large" />
+          <div>
+            <Search
+              placeholder="explore sale videos ..."
+              size="large"
+              className="search"
+            />
           </div>
         </div>
         <div className="green"></div>
