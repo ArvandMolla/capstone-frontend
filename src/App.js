@@ -1,5 +1,5 @@
 import "antd/dist/antd.css";
-import "./App.css";
+import "./App.less";
 import GeneralLayout from "./layouts/GeneralLayout";
 import Home from "./views/Home";
 import PostVideo from "./views/PostVideo";
