@@ -9,6 +9,20 @@ export default function PostVideo() {
   const [labels, setLabels] = useState(null);
   const [transcriptData, setTranscriptData] = useState(null);
   const [transcript, setTranscript] = useState(null);
+  const [entityData, setEntityData] = useState(null);
+  const [brand, setBrand] = useState("");
+
+  useEffect(() => {
+    if (transcript) {
+      fetchEntityData();
+    }
+  }, [transcript]);
+
+  useEffect(() => {
+    if (entityData) {
+      extractBrand();
+    }
+  }, [entityData]);
 
   useEffect(() => {
     if (uploadedFile) {
@@ -28,6 +42,29 @@ export default function PostVideo() {
       extractTranscriptFromData();
     }
   }, [transcriptData]);
+
+  const extractBrand = () => {
+    let salience = 0;
+    let brand = "";
+
+    entityData.forEach((elem) => {
+      if ((elem.type === "ORGANIZATION") & (elem.salience > salience)) {
+        brand = elem.name;
+        salience = elem.salience;
+      }
+    });
+    setBrand(brand);
+  };
+
+  const fetchEntityData = () => {
+    const body = { text: transcript };
+    axiosInstance
+      .post("/text/analyze/entities", body)
+      .then((res) => {
+        setEntityData(res.data);
+      })
+      .catch((err) => console.log(err.message));
+  };
 
   const extractTranscriptFromData = () => {
     let transcript = "";
@@ -86,6 +123,8 @@ export default function PostVideo() {
           uploadedFile={uploadedFile}
           labels={labels}
           transcript={transcript}
+          brand={brand}
+          setUploadedFile={setUploadedFile}
         />
       ) : (
         <Dropzone setUploadedFile={setUploadedFile} />

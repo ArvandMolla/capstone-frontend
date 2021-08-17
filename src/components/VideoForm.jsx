@@ -1,20 +1,48 @@
-import { Row, Col, Input, Form } from "antd";
-import { Spin } from "antd";
+import { Row, Col, Input, Form, Button, Spin, message, Typography } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import LabelRender from "../components/LabelRender";
-import { Typography } from "antd";
+import BrandRender from "../components/BrandRender.jsx";
+import axiosInstance from "../util/axios";
+
 import { useState, useEffect } from "react";
 
 const { Paragraph } = Typography;
 const antIcon = <LoadingOutlined style={{ fontSize: 48 }} spin />;
 
-export default function VideoForm({ uploadedFile, labels, transcript }) {
+export default function VideoForm({
+  uploadedFile,
+  labels,
+  transcript,
+  brand,
+  setUploadedFile,
+}) {
   const [editableStr, setEditableStr] = useState(null);
+  const [videoTitle, setVideoTitle] = useState(null);
 
-  useEffect(() => {
-    setEditableStr(transcript);
-  }, [JSON.stringify(editableStr)]);
+  const postAd = () => {
+    if (!videoTitle) {
+      message.error(`video title is required.`);
+    } else {
+      const adBody = {
+        title: videoTitle,
+        transcript,
+        labels,
+        brand,
+        videoUrl: uploadedFile.publicUrl,
+      };
 
+      axiosInstance
+        .post("/ad/post", adBody)
+        .then((res) => {
+          message.success(`Your ad was posted successfully`);
+          setUploadedFile(null);
+        })
+        .catch((err) => {
+          message.error(`Posting ad failed!`);
+          console.log(err.message);
+        });
+    }
+  };
   console.log("public url: ", uploadedFile);
   return (
     <div>
@@ -36,13 +64,33 @@ export default function VideoForm({ uploadedFile, labels, transcript }) {
                   required
                   tooltip="Title shows up below your video in listings"
                 >
-                  <Input placeholder="Give your video a nice title ..." />
+                  <Input
+                    placeholder="Give your video a nice title ..."
+                    value={videoTitle}
+                    onChange={(e) => setVideoTitle(e.target.value)}
+                  />
+                </Form.Item>
+                {editableStr ? (
+                  <Paragraph editable={{ onChange: setEditableStr }}>
+                    {editableStr}
+                  </Paragraph>
+                ) : (
+                  <Paragraph editable={{ onChange: setEditableStr }}>
+                    {transcript}
+                  </Paragraph>
+                )}
+
+                <LabelRender labels={labels} color="green" title="Labels" />
+                <BrandRender brand={brand} color="purple" />
+
+                <Form.Item>
+                  <div className="submit-ad">
+                    <Button type="primary" onClick={() => postAd()}>
+                      Submit
+                    </Button>
+                  </div>
                 </Form.Item>
               </Form>
-              <Paragraph editable={{ onChange: setEditableStr }}>
-                {editableStr}
-              </Paragraph>
-              <LabelRender labels={labels} />
             </div>
           ) : (
             <div className="waiting">

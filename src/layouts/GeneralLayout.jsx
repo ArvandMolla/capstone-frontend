@@ -18,7 +18,7 @@ export default function GeneralLayout(props) {
             />
           </div>
           <div className="title">
-            <h1>Buy and sale in 30 seconds!</h1>
+            <h1>Buy and sell in 30 seconds!</h1>
           </div>
           <div>
             <Search
