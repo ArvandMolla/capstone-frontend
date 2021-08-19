@@ -14,18 +14,18 @@ export default function VideoForm({
   labels,
   transcript,
   brand,
-  setUploadedFile,
+  reseter,
 }) {
   const [editableStr, setEditableStr] = useState(null);
   const [videoTitle, setVideoTitle] = useState(null);
 
   const postAd = () => {
     if (!videoTitle) {
-      message.error(`video title is required.`);
+      message.error(`Video title is required.`);
     } else {
       const adBody = {
         title: videoTitle,
-        transcript,
+        transcript: editableStr,
         labels,
         brand,
         videoUrl: uploadedFile.publicUrl,
@@ -35,7 +35,9 @@ export default function VideoForm({
         .post("/ad/post", adBody)
         .then((res) => {
           message.success(`Your ad was posted successfully`);
-          setUploadedFile(null);
+          setEditableStr(null);
+          setVideoTitle(null);
+          reseter();
         })
         .catch((err) => {
           message.error(`Posting ad failed!`);
@@ -94,8 +96,8 @@ export default function VideoForm({
             </div>
           ) : (
             <div className="waiting">
-              <h2>your video is being analyzed ...</h2>
-              <h3>it takes up to 15 seconds</h3>
+              <h2>Your video is being analyzed ...</h2>
+              <h3>It takes up to 1 minute</h3>
 
               <Spin indicator={antIcon} />
             </div>

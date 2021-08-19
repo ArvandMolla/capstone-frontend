@@ -116,6 +116,16 @@ export default function PostVideo() {
       })
       .catch((err) => console.log(err.message));
   };
+
+  const reseter = () => {
+    setUploadedFile(null);
+    setLabelData(null);
+    setLabels(null);
+    setTranscriptData(null);
+    setTranscript(null);
+    setEntityData(null);
+    setBrand("");
+  };
   return (
     <div>
       {uploadedFile ? (
@@ -124,7 +134,7 @@ export default function PostVideo() {
           labels={labels}
           transcript={transcript}
           brand={brand}
-          setUploadedFile={setUploadedFile}
+          reseter={reseter}
         />
       ) : (
         <Dropzone setUploadedFile={setUploadedFile} />

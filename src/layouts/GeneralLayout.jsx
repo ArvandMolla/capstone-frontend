@@ -6,7 +6,7 @@ import Home from "../views/Home";
 const { Search } = Input;
 export default function GeneralLayout(props) {
   return (
-    <div>
+    <div className="layout-main">
       <TopNav />
       <div className="top">
         <div className="search-container">
