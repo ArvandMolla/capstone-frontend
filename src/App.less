@@ -1,9 +1,5 @@
 @import "~antd/dist/antd.less";
 
-.layout-main {
-  z-index: 50;
-}
-
 .top-nav {
   display: flex;
   justify-content: space-between;
@@ -70,6 +66,7 @@
   align-items: center;
   flex-direction: column;
   margin-bottom: 20px;
+  z-index: 1;
 }
 
 .green {
@@ -87,13 +84,17 @@
 
 .yellow {
   background-color: rgb(255, 255, 255);
-  height: 85px;
+  height: 70px;
   width: 94%;
   /* margin-left: 100px; */
   /* margin-right: 100px; */
   position: absolute;
   bottom: -5px;
   border-radius: 5px;
+  box-shadow: 1px 9px 11px 0px rgba(255, 255, 255, 0.86);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .bottom-container {
@@ -102,8 +103,9 @@
 }
 
 .bottom {
-  width: 94%;
+  width: 90%;
   background-color: rgb(255, 255, 255);
+  // z-index: -10;
 }
 
 .search-container {
@@ -178,6 +180,7 @@
 
 .card-footer {
   padding: 8px 12px 4px 12px;
+  min-height: 82px;
 }
 .video-title p {
   font-weight: 600;
@@ -197,4 +200,36 @@
 .footer-tags span {
   padding-bottom: 4px;
   margin-bottom: 8px;
+}
+.collapse-icon {
+  cursor: pointer;
+  padding-top: 4px;
+}
+
+.second-tags span {
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+}
+
+.first-tags {
+  display: inline-block;
+}
+.no-display {
+  display: none;
+}
+.ant-tag {
+  cursor: pointer;
+}
+
+.top-filters-container {
+  width: 96%;
+  display: flex;
+  justify-content: start;
+}
+
+.top-filters-container span {
+  padding: 3px;
+  padding-left: 10px;
+  font-size: 1.05em;
+  font-weight: bold;
 }

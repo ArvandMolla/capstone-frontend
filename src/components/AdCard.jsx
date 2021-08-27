@@ -1,4 +1,5 @@
 import { Col, Tag } from "antd";
+import { DownOutlined } from "@ant-design/icons";
 
 export default function AdCard({ ad }) {
   return (
@@ -15,6 +16,11 @@ export default function AdCard({ ad }) {
                 {ad.labels.map((elem) => (
                   <Tag color="green">{elem}</Tag>
                 ))}
+
+                <span className="collapse-icon" onClick={(e) => console.log(e)}>
+                  {/* <DownOutlined /> */}
+                  sldkj
+                </span>
               </div>
             )}
 
@@ -22,6 +28,7 @@ export default function AdCard({ ad }) {
               {ad.brand && <Tag color="purple">{ad.brand}</Tag>}
             </div>
           </div>
+          <div className="extra-tags">helloooo</div>
         </div>
       </div>
     </Col>

@@ -22,7 +22,7 @@ export default function GeneralLayout(props) {
           </div>
           <div>
             <Search
-              placeholder="explore sale videos ..."
+              placeholder="explore videos ..."
               size="large"
               className="search"
             />
@@ -31,7 +31,7 @@ export default function GeneralLayout(props) {
         <div className="green"></div>
 
         <div className="yellow-container">
-          <div className="yellow"></div>
+          <div className="yellow">{props.filters}</div>
         </div>
       </div>
       <div className="bottom-container">

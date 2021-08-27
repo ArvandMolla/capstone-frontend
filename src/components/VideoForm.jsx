@@ -1,6 +1,7 @@
 import { Row, Col, Input, Form, Button, Spin, message, Typography } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import LabelRender from "../components/LabelRender";
+import EditableTagGroup from "../components/LabelRender2";
 import BrandRender from "../components/BrandRender.jsx";
 import axiosInstance from "../util/axios";
 
@@ -83,6 +84,11 @@ export default function VideoForm({
                 )}
 
                 <LabelRender labels={labels} color="green" title="Labels" />
+                {/* <EditableTagGroup
+                  labels={labels}
+                  color="green"
+                  title="Labels"
+                /> */}
                 <BrandRender brand={brand} color="purple" />
 
                 <Form.Item>
