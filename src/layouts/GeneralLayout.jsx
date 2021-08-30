@@ -2,8 +2,17 @@ import { Input, Space } from "antd";
 import { Button } from "antd";
 import TopNav from "../components/TopNav";
 import Home from "../views/Home";
+import { AudioOutlined } from "@ant-design/icons";
 
 const { Search } = Input;
+const suffix = (
+  <AudioOutlined
+    style={{
+      fontSize: 16,
+      color: "#79b100",
+    }}
+  />
+);
 export default function GeneralLayout(props) {
   return (
     <div className="layout-main">
@@ -25,6 +34,11 @@ export default function GeneralLayout(props) {
               placeholder="explore videos ..."
               size="large"
               className="search"
+              suffix={suffix}
+              // allowClear
+              onSearch={() => props.fetchFilteredAds()}
+              value={props.reqSearch}
+              onChange={(e) => props.setReqSearch(e.target.value)}
             />
           </div>
         </div>

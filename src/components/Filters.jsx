@@ -15,9 +15,17 @@ export default function Filters({
           <Tag
             color="green"
             closable
-            onClose={(e) =>
-              removeReqLabels(e.target.parentElement.parentElement.innerText)
-            }
+            onClose={(e) => {
+              if (e.target.parentElement.parentElement.innerText) {
+                removeReqLabels(e.target.parentElement.parentElement.innerText);
+              } else if (
+                e.target.parentElement.parentElement.parentElement.innerText
+              ) {
+                removeReqLabels(
+                  e.target.parentElement.parentElement.parentElement.innerText
+                );
+              }
+            }}
             key={uniqid()}
           >
             {elem}
