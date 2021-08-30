@@ -13,28 +13,66 @@ import {
   withRouter,
 } from "react-router-dom";
 
-function App({ history }) {
+function App({ history, location }) {
   const [homePageAds, setHomePageAds] = useState(null);
   const [reqLabels, setReqLabels] = useState([]);
   const [reqBrand, setReqBrand] = useState(null);
   const [reqSearch, setReqSearch] = useState(null);
+  const [urlParams, setUrlParams] = useState("/ad");
+  const [totalItems, setTotalItems] = useState(null);
+
+  // useEffect(() => {
+  //   fetchFilteredAds();
+  // }, [reqLabels, reqBrand]);
+
+  useEffect(() => {
+    urlChanger();
+  }, [reqLabels, reqBrand]);
 
   useEffect(() => {
     fetchFilteredAds();
-  }, [reqLabels, reqBrand]);
+  }, [urlParams]);
 
   const fetchFilteredAds = () => {
-    urlChanger();
     axiosInstance
-      .get(urlGenerator())
+      .get(
+        `${
+          location.search
+            ? `/ad` + `${location.pathname}` + `${location.search}`
+            : "/ad"
+        }`
+      )
       .then((res) => {
         if (res.data.data) {
           setHomePageAds(res.data.data);
+          setTotalItems(res.data.total);
         } else {
           setHomePageAds(res.data);
         }
       })
       .catch((err) => console.log(err.message));
+  };
+
+  const urlChanger = () => {
+    if (urlGenerator() !== "/") {
+      history.push("/");
+      history.push(urlGenerator());
+      setUrlParams(urlGenerator());
+    } else {
+      history.push("/");
+      setUrlParams("/ad");
+      setTotalItems(null);
+    }
+  };
+
+  const urlGenerator = () => {
+    if (reqLabels.length > 0 || reqBrand || reqSearch) {
+      return `result?${reqSearch ? `search=${reqSearch}` : ""}${
+        reqLabels.length > 0 ? `&labels=${reqLabels.join()}` : ""
+      }${reqBrand ? `&brand=${reqBrand}` : ""}`;
+    } else {
+      return "/";
+    }
   };
 
   const pushReqLabel = (label) => {
@@ -50,25 +88,6 @@ function App({ history }) {
     }
     console.log(newReqLabels);
     setReqLabels(newReqLabels);
-  };
-
-  const urlGenerator = () => {
-    if (reqLabels.length > 0 || reqBrand || reqSearch) {
-      return `ad/result?${reqSearch ? `search=${reqSearch}` : ""}${
-        reqLabels.length > 0 ? `&labels=${reqLabels.join()}` : ""
-      }${reqBrand ? `&brand=${reqBrand}` : ""}`;
-    } else {
-      return "ad";
-    }
-  };
-
-  const urlChanger = () => {
-    if (urlGenerator() !== "ad") {
-      history.push("/");
-      history.push(urlGenerator());
-    } else {
-      history.push("/");
-    }
   };
 
   return (
@@ -91,11 +110,12 @@ function App({ history }) {
                   setReqLabels={setReqLabels}
                   setReqBrand={setReqBrand}
                   removeReqLabels={removeReqLabels}
+                  totalItems={totalItems}
                 />
               }
               setReqSearch={setReqSearch}
               reqSearch={reqSearch}
-              fetchFilteredAds={fetchFilteredAds}
+              urlChanger={urlChanger}
               {...routerProps}
             />
           )}

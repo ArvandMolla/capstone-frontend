@@ -35,10 +35,12 @@ export default function GeneralLayout(props) {
               size="large"
               className="search"
               suffix={suffix}
-              // allowClear
-              onSearch={() => props.fetchFilteredAds()}
+              allowClear
+              onSearch={() => props.urlChanger()}
               value={props.reqSearch}
-              onChange={(e) => props.setReqSearch(e.target.value)}
+              onChange={(e) => {
+                props.setReqSearch(e.target.value);
+              }}
             />
           </div>
         </div>

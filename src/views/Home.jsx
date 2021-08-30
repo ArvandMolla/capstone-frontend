@@ -10,11 +10,13 @@ const antIcon = <LoadingOutlined style={{ fontSize: 48 }} spin />;
 export default function Home({ homePageAds, pushReqLabel, setReqBrand }) {
   return (
     <div className="home-main">
-      {!homePageAds ? (
+      {!homePageAds && (
         <div className="waiting">
           <Spin indicator={antIcon} />
         </div>
-      ) : (
+      )}
+
+      {homePageAds.length > 0 ? (
         <Row gutter={24}>
           {homePageAds.map((elem) => (
             <AdCard3
@@ -25,6 +27,8 @@ export default function Home({ homePageAds, pushReqLabel, setReqBrand }) {
             />
           ))}
         </Row>
+      ) : (
+        <h1>No result</h1>
       )}
     </div>
   );
