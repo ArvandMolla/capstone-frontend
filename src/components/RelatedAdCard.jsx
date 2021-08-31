@@ -12,7 +12,7 @@ const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
   };
 
   return (
-    <Col className="gutter-row" xs={24} sm={12} md={8} lg={8} xl={6}>
+    <Col>
       <div className="adcard-back-div">
         <video
           className="video-thumb"

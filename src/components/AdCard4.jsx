@@ -1,15 +1,24 @@
 import { Col, Tag } from "antd";
 import { DownOutlined, UpOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import uniqid from "uniqid";
 import { withRouter } from "react-router-dom";
 
 const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
   const [collapsed, setCollapsed] = useState(true);
+  const [elementHeight, setElementHeight] = useState(null);
 
+  useEffect(() => {
+    let height = document
+      .getElementById("labelsDiv")
+      .getBoundingClientRect().height;
+    console.log(height);
+  }, []);
   const toggleCollapse = () => {
     setCollapsed(!collapsed);
   };
+
+  const getLabelsHeight = () => {};
 
   return (
     <Col className="gutter-row" xs={24} sm={12} md={8} lg={8} xl={6}>
@@ -27,8 +36,8 @@ const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
           </div>
           <div className="footer-tags">
             <div className="labels">
-              {ad.labels.length > 0 && ad.labels.length < 3 && (
-                <div className="first-tags">
+              {ad.labels.length > 0 && (
+                <div className="first-tags" id="labelsDiv">
                   {ad.labels.map((elem) => (
                     <Tag
                       color="green"
@@ -38,34 +47,8 @@ const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
                       {elem}
                     </Tag>
                   ))}
+                  {getLabelsHeight()}
                 </div>
-              )}
-
-              {ad.labels.length > 2 && (
-                <>
-                  <div className="first-tags">
-                    {ad.labels.slice(0, 2).map((elem) => (
-                      <Tag
-                        color="green"
-                        onClick={() => pushReqLabel(elem)}
-                        key={uniqid()}
-                      >
-                        {elem}
-                      </Tag>
-                    ))}
-                  </div>
-
-                  <span
-                    className="collapse-icon"
-                    onClick={() => toggleCollapse()}
-                  >
-                    {collapsed ? (
-                      <DownOutlined style={{ fontSize: "11px" }} />
-                    ) : (
-                      <UpOutlined style={{ fontSize: "11px" }} />
-                    )}
-                  </span>
-                </>
               )}
             </div>
 

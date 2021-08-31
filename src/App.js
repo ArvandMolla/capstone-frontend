@@ -2,8 +2,9 @@ import "antd/dist/antd.css";
 import "./App.less";
 import GeneralLayout from "./layouts/GeneralLayout";
 import Home from "./views/Home";
-import Filters from "./components/Filters.jsx";
 import PostVideo from "./views/PostVideo";
+import Details from "./views/Details";
+import Filters from "./components/Filters.jsx";
 import { useState, useEffect } from "react";
 import axiosInstance from "./util/axios";
 import {
@@ -20,6 +21,7 @@ function App({ history, location }) {
   const [reqSearch, setReqSearch] = useState(null);
   const [urlParams, setUrlParams] = useState("/ad");
   const [totalItems, setTotalItems] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // useEffect(() => {
   //   fetchFilteredAds();
@@ -33,6 +35,10 @@ function App({ history, location }) {
     fetchFilteredAds();
   }, [urlParams]);
 
+  useEffect(() => {
+    urlChanger();
+  }, [currentPage]);
+
   const fetchFilteredAds = () => {
     axiosInstance
       .get(
@@ -43,12 +49,8 @@ function App({ history, location }) {
         }`
       )
       .then((res) => {
-        if (res.data.data) {
-          setHomePageAds(res.data.data);
-          setTotalItems(res.data.total);
-        } else {
-          setHomePageAds(res.data);
-        }
+        setHomePageAds(res.data.data);
+        setTotalItems(res.data.total);
       })
       .catch((err) => console.log(err.message));
   };
@@ -69,9 +71,11 @@ function App({ history, location }) {
     if (reqLabels.length > 0 || reqBrand || reqSearch) {
       return `result?${reqSearch ? `search=${reqSearch}` : ""}${
         reqLabels.length > 0 ? `&labels=${reqLabels.join()}` : ""
-      }${reqBrand ? `&brand=${reqBrand}` : ""}`;
+      }${reqBrand ? `&brand=${reqBrand}` : ""}${
+        currentPage !== 1 ? `&page=${currentPage}` : ""
+      }`;
     } else {
-      return "/";
+      return `${currentPage !== 1 ? `?page=${currentPage}` : "/"}`;
     }
   };
 
@@ -101,6 +105,9 @@ function App({ history, location }) {
                   homePageAds={homePageAds}
                   pushReqLabel={pushReqLabel}
                   setReqBrand={setReqBrand}
+                  totalItems={totalItems}
+                  urlChanger={urlChanger}
+                  setCurrentPage={setCurrentPage}
                 />
               }
               filters={
@@ -128,6 +135,12 @@ function App({ history, location }) {
           )}
           path="/post-video"
           exact
+        />
+        <Route
+          render={(routerProps) => (
+            <GeneralLayout view={<Details />} {...routerProps} />
+          )}
+          path="/details/:id"
         />
       </Switch>
     </Router>
