@@ -4,7 +4,15 @@ import { useState } from "react";
 import uniqid from "uniqid";
 import { withRouter } from "react-router-dom";
 
-const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
+const AdCard3 = ({
+  ad,
+  history,
+  location,
+  fetchSingleAd,
+  pushReqLabel,
+  setReqBrand,
+  fetchFilteredAds,
+}) => {
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleCollapse = () => {
@@ -19,7 +27,10 @@ const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
           width="100%"
           src={ad.videoUrl}
           type="video/mp4"
-          onClick={() => history.push(`/details/${ad._id}`)}
+          onClick={() => {
+            history.push(`/details/${ad._id}`);
+            fetchSingleAd(ad._id);
+          }}
         ></video>
         <div className="card-footer">
           <div className="video-title">
@@ -32,7 +43,11 @@ const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
                   {ad.labels.map((elem) => (
                     <Tag
                       color="green"
-                      onClick={() => pushReqLabel(elem)}
+                      onClick={() => {
+                        pushReqLabel(elem);
+                        history.push(`/`);
+                        fetchFilteredAds();
+                      }}
                       key={uniqid()}
                     >
                       {elem}

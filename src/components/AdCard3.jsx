@@ -4,7 +4,7 @@ import { useState } from "react";
 import uniqid from "uniqid";
 import { withRouter } from "react-router-dom";
 
-const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
+const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history, setUrlParams }) => {
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleCollapse = () => {
@@ -19,11 +19,14 @@ const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
           width="100%"
           src={ad.videoUrl}
           type="video/mp4"
-          onClick={() => history.push(`/details/${ad._id}`)}
+          onClick={() => {
+            setUrlParams("/ad");
+            history.push(`/details/${ad._id}`);
+          }}
         ></video>
         <div className="card-footer">
           <div className="video-title">
-            <p onClick={() => console.log("yes")}>{ad.title}</p>
+            <p>{ad.title}</p>
           </div>
           <div className="footer-tags">
             <div className="labels">

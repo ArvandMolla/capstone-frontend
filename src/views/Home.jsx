@@ -2,7 +2,6 @@ import AdCard3 from "../components/AdCard3.jsx";
 import { Row, Spin, Pagination } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
-import axiosInstance from "../util/axios";
 const antIcon = <LoadingOutlined style={{ fontSize: 48 }} spin />;
 
 export default function Home({
@@ -11,6 +10,7 @@ export default function Home({
   setReqBrand,
   totalItems,
   setCurrentPage,
+  setUrlParams,
 }) {
   const [numberOfPages, setNumberOfPages] = useState(null);
 
@@ -44,6 +44,7 @@ export default function Home({
                   pushReqLabel={pushReqLabel}
                   setReqBrand={setReqBrand}
                   key={elem._id}
+                  setUrlParams={setUrlParams}
                 />
               ))}
             </Row>

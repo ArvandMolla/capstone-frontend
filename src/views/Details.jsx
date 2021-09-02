@@ -4,7 +4,13 @@ import { withRouter } from "react-router-dom";
 import RelatedAdCard from "../components/RelatedAdCard";
 import axiosInstance from "../util/axios";
 
-function Details({ match }) {
+function Details({
+  match,
+  pushReqLabel,
+  setReqBrand,
+  fetchFilteredAds,
+  history,
+}) {
   const [adData, setAdData] = useState(null);
   const [relatedAdsData, setRelatedAdsData] = useState(null);
 
@@ -46,14 +52,34 @@ function Details({ match }) {
             <h1>{adData.title}</h1>
             <p className="datails-transcript">{adData.transcript}</p>
             <div className="details-labels">
-              {adData.labels.map((elem) => (
-                <Tag color="green" key={elem._id}>
-                  {elem}
-                </Tag>
-              ))}
+              {adData.labels.length > 0 &&
+                adData.labels.map((elem) => (
+                  <Tag
+                    color="green"
+                    key={elem._id}
+                    onClick={() => {
+                      pushReqLabel(elem);
+                      history.push(`/`);
+                      fetchFilteredAds();
+                    }}
+                  >
+                    {elem}
+                  </Tag>
+                ))}
             </div>
             <div className="details-brand">
-              <Tag color="purple"> {adData.brand}</Tag>
+              {adData.brand && (
+                <Tag
+                  color="purple"
+                  onClick={() => {
+                    setReqBrand(adData.brand);
+                    history.push(`/`);
+                    fetchFilteredAds();
+                  }}
+                >
+                  {adData.brand}
+                </Tag>
+              )}
             </div>
           </Col>
           <Col xs={24} sm={12} lg={6}>
@@ -61,7 +87,14 @@ function Details({ match }) {
             <Row>
               {relatedAdsData &&
                 relatedAdsData.map((elem) => (
-                  <RelatedAdCard ad={elem} key={elem._id} />
+                  <RelatedAdCard
+                    ad={elem}
+                    key={elem._id}
+                    fetchSingleAd={fetchSingleAd}
+                    pushReqLabel={pushReqLabel}
+                    setReqBrand={setReqBrand}
+                    fetchFilteredAds={fetchFilteredAds}
+                  />
                 ))}
             </Row>
           </Col>

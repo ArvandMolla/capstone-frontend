@@ -2,6 +2,8 @@ import "antd/dist/antd.css";
 import "./App.less";
 import GeneralLayout from "./layouts/GeneralLayout";
 import Home from "./views/Home";
+import Login from "./views/Login";
+import Register from "./views/Register";
 import PostVideo from "./views/PostVideo";
 import Details from "./views/Details";
 import Filters from "./components/Filters.jsx";
@@ -22,10 +24,6 @@ function App({ history, location }) {
   const [urlParams, setUrlParams] = useState("/ad");
   const [totalItems, setTotalItems] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-
-  // useEffect(() => {
-  //   fetchFilteredAds();
-  // }, [reqLabels, reqBrand]);
 
   useEffect(() => {
     urlChanger();
@@ -108,6 +106,7 @@ function App({ history, location }) {
                   totalItems={totalItems}
                   urlChanger={urlChanger}
                   setCurrentPage={setCurrentPage}
+                  setUrlParams={setUrlParams}
                 />
               }
               filters={
@@ -138,9 +137,31 @@ function App({ history, location }) {
         />
         <Route
           render={(routerProps) => (
-            <GeneralLayout view={<Details />} {...routerProps} />
+            <GeneralLayout
+              view={
+                <Details
+                  pushReqLabel={pushReqLabel}
+                  setReqBrand={setReqBrand}
+                  fetchFilteredAds={fetchFilteredAds}
+                />
+              }
+              setReqSearch={setReqSearch}
+              reqSearch={reqSearch}
+              urlChanger={urlChanger}
+              {...routerProps}
+            />
           )}
           path="/details/:id"
+        />
+        <Route
+          render={(routerProps) => <Register {...routerProps} />}
+          path="/register"
+          exact
+        />
+        <Route
+          render={(routerProps) => <Login {...routerProps} />}
+          path="/login"
+          exact
         />
       </Switch>
     </Router>
