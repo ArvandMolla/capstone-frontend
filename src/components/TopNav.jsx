@@ -36,12 +36,24 @@ const TopNav = (props) => {
         >
           Post your video
         </span>
-        <span
-          className="menu-item"
-          onClick={() => props.history.push("/login")}
-        >
-          Login
-        </span>
+        {props.isLoggedin ? (
+          <span
+            className="menu-item"
+            onClick={() => {
+              localStorage.removeItem("accessToken");
+              window.location.reload(false);
+            }}
+          >
+            Logout
+          </span>
+        ) : (
+          <span
+            className="menu-item"
+            onClick={() => props.history.push("/login")}
+          >
+            Login
+          </span>
+        )}
       </div>
     </div>
   );

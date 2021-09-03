@@ -2,8 +2,9 @@ import Dropzone from "../components/DropZone";
 import VideoForm from "../components/VideoForm";
 import { useState, useEffect } from "react";
 import axiosInstance from "../util/axios";
+import { withRouter } from "react-router-dom";
 
-export default function PostVideo() {
+const PostVideo = ({ history, setIsloggedin, isLoggedin }) => {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [labelData, setLabelData] = useState(null);
   const [labels, setLabels] = useState(null);
@@ -11,6 +12,10 @@ export default function PostVideo() {
   const [transcript, setTranscript] = useState(null);
   const [entityData, setEntityData] = useState(null);
   const [brand, setBrand] = useState("");
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
 
   useEffect(() => {
     if (transcript) {
@@ -42,6 +47,21 @@ export default function PostVideo() {
       extractTranscriptFromData();
     }
   }, [transcriptData]);
+
+  const checkLogin = () => {
+    const accessToken = localStorage.getItem("accessToken");
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+    axiosInstance
+      .get("/user/is-loggedin", { headers })
+      .then((res) => {
+        if (res.status === 200) {
+          setIsloggedin(true);
+        }
+      })
+      .catch((err) => history.push("/login"));
+  };
 
   const extractBrand = () => {
     let salience = 0;
@@ -137,8 +157,10 @@ export default function PostVideo() {
           reseter={reseter}
         />
       ) : (
-        <Dropzone setUploadedFile={setUploadedFile} />
+        isLoggedin && <Dropzone setUploadedFile={setUploadedFile} />
       )}
     </div>
   );
-}
+};
+
+export default withRouter(PostVideo);

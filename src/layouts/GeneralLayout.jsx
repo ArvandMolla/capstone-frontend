@@ -16,7 +16,7 @@ const suffix = (
 export default function GeneralLayout(props) {
   return (
     <div className="layout-main">
-      <TopNav />
+      <TopNav isLoggedin={props.isLoggedin} />
       <div className="top">
         <div className="search-container">
           <div className="big-logo-container">

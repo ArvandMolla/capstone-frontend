@@ -17,6 +17,7 @@ import {
 } from "react-router-dom";
 
 function App({ history, location }) {
+  const [isLoggedin, setIsloggedin] = useState(false);
   const [homePageAds, setHomePageAds] = useState(null);
   const [reqLabels, setReqLabels] = useState([]);
   const [reqBrand, setReqBrand] = useState(null);
@@ -24,6 +25,22 @@ function App({ history, location }) {
   const [urlParams, setUrlParams] = useState("/ad");
   const [totalItems, setTotalItems] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+
+  useEffect(() => {
+    checkLogin();
+  }, []);
+
+  const checkLogin = () => {
+    const accessToken = localStorage.getItem("accessToken");
+    const headers = {
+      Authorization: `Bearer ${accessToken}`,
+    };
+    axiosInstance.get("/user/is-loggedin", { headers }).then((res) => {
+      if (res.status === 200) {
+        setIsloggedin(true);
+      }
+    });
+  };
 
   useEffect(() => {
     urlChanger();
@@ -119,6 +136,7 @@ function App({ history, location }) {
                   totalItems={totalItems}
                 />
               }
+              isLoggedin={isLoggedin}
               setReqSearch={setReqSearch}
               reqSearch={reqSearch}
               urlChanger={urlChanger}
@@ -130,7 +148,16 @@ function App({ history, location }) {
         />
         <Route
           render={(routerProps) => (
-            <GeneralLayout view={<PostVideo />} {...routerProps} />
+            <GeneralLayout
+              view={
+                <PostVideo
+                  isLoggedin={isLoggedin}
+                  setIsloggedin={setIsloggedin}
+                />
+              }
+              isLoggedin={isLoggedin}
+              {...routerProps}
+            />
           )}
           path="/post-video"
           exact
@@ -148,6 +175,7 @@ function App({ history, location }) {
               setReqSearch={setReqSearch}
               reqSearch={reqSearch}
               urlChanger={urlChanger}
+              isLoggedin={isLoggedin}
               {...routerProps}
             />
           )}
