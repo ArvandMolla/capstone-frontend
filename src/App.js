@@ -156,6 +156,9 @@ function App({ history, location }) {
                 />
               }
               isLoggedin={isLoggedin}
+              setReqSearch={setReqSearch}
+              reqSearch={reqSearch}
+              urlChanger={urlChanger}
               {...routerProps}
             />
           )}
@@ -172,10 +175,10 @@ function App({ history, location }) {
                   fetchFilteredAds={fetchFilteredAds}
                 />
               }
+              isLoggedin={isLoggedin}
               setReqSearch={setReqSearch}
               reqSearch={reqSearch}
               urlChanger={urlChanger}
-              isLoggedin={isLoggedin}
               {...routerProps}
             />
           )}
