@@ -27,12 +27,21 @@ const TopNav = (props) => {
       </div>
 
       <div className="top-nav-menu-container">
-        <span className="menu-item" onClick={() => props.history.push("/")}>
+        <span
+          className="menu-item"
+          onClick={() => {
+            props.history.push("/");
+            // window.location.reload(false);
+          }}
+        >
           Home
         </span>
         <span
           className="menu-item"
-          onClick={() => props.history.push("/post-video")}
+          onClick={() => {
+            props.history.push("/post-video");
+            // window.location.reload(false);
+          }}
         >
           Post your video
         </span>

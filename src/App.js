@@ -7,6 +7,7 @@ import Register from "./views/Register";
 import PostVideo from "./views/PostVideo";
 import Details from "./views/Details";
 import Filters from "./components/Filters.jsx";
+import FromGoogle from "./components/FromGoogle.jsx";
 import { useState, useEffect } from "react";
 import axiosInstance from "./util/axios";
 import {
@@ -71,26 +72,34 @@ function App({ history, location }) {
   };
 
   const urlChanger = () => {
-    if (urlGenerator() !== "/") {
-      history.push("/");
-      history.push(urlGenerator());
-      setUrlParams(urlGenerator());
+    if (urlGenerator() === "other") {
+      return;
     } else {
-      history.push("/");
-      setUrlParams("/ad");
-      setTotalItems(null);
+      if (urlGenerator() !== "/") {
+        history.push("/");
+        history.push(urlGenerator());
+        setUrlParams(urlGenerator());
+      } else {
+        history.push("/");
+        setUrlParams("/ad");
+        setTotalItems(null);
+      }
     }
   };
 
   const urlGenerator = () => {
-    if (reqLabels.length > 0 || reqBrand || reqSearch) {
-      return `result?${reqSearch ? `search=${reqSearch}` : ""}${
-        reqLabels.length > 0 ? `&labels=${reqLabels.join()}` : ""
-      }${reqBrand ? `&brand=${reqBrand}` : ""}${
-        currentPage !== 1 ? `&page=${currentPage}` : ""
-      }`;
+    if (location.pathname === "/" || location.pathname === "/result") {
+      if (reqLabels.length > 0 || reqBrand || reqSearch) {
+        return `result?${reqSearch ? `search=${reqSearch}` : ""}${
+          reqLabels.length > 0 ? `&labels=${reqLabels.join()}` : ""
+        }${reqBrand ? `&brand=${reqBrand}` : ""}${
+          currentPage !== 1 ? `&page=${currentPage}` : ""
+        }`;
+      } else {
+        return `${currentPage !== 1 ? `?page=${currentPage}` : "/"}`;
+      }
     } else {
-      return `${currentPage !== 1 ? `?page=${currentPage}` : "/"}`;
+      return "other";
     }
   };
 
@@ -153,6 +162,8 @@ function App({ history, location }) {
                 <PostVideo
                   isLoggedin={isLoggedin}
                   setIsloggedin={setIsloggedin}
+                  homePageAds={homePageAds}
+                  fetchFilteredAds={fetchFilteredAds}
                 />
               }
               isLoggedin={isLoggedin}
@@ -193,6 +204,10 @@ function App({ history, location }) {
           render={(routerProps) => <Login {...routerProps} />}
           path="/login"
           exact
+        />
+        <Route
+          render={(routerProps) => <FromGoogle {...routerProps} />}
+          path="/from-google"
         />
       </Switch>
     </Router>

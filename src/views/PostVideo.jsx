@@ -4,7 +4,13 @@ import { useState, useEffect } from "react";
 import axiosInstance from "../util/axios";
 import { withRouter } from "react-router-dom";
 
-const PostVideo = ({ history, setIsloggedin, isLoggedin }) => {
+const PostVideo = ({
+  history,
+  setIsloggedin,
+  isLoggedin,
+  fetchFilteredAds,
+  homePageAds,
+}) => {
   const [uploadedFile, setUploadedFile] = useState(null);
   const [labelData, setLabelData] = useState(null);
   const [labels, setLabels] = useState(null);

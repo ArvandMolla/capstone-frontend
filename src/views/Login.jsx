@@ -75,7 +75,11 @@ function Login({ history }) {
           <Divider>Or</Divider>
         </div>
         <div>
-          <Button icon={<GoogleLogo />} size="large">
+          <Button
+            icon={<GoogleLogo />}
+            size="large"
+            href="http://localhost:5000/api/user/google-login"
+          >
             Login with Google
           </Button>
         </div>
