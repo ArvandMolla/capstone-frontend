@@ -11,6 +11,7 @@ function Details({
   setReqBrand,
   fetchFilteredAds,
   history,
+  isLoggedin,
 }) {
   const [adData, setAdData] = useState(null);
   const [relatedAdsData, setRelatedAdsData] = useState(null);
@@ -99,6 +100,7 @@ function Details({
                   comments={comments}
                   adId={adId}
                   fetchComments={fetchComments}
+                  isLoggedin={isLoggedin}
                 />
               )}
             </div>

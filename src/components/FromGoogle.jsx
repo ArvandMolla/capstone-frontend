@@ -3,7 +3,7 @@ import React from "react";
 function FromGoogle({ location, history }) {
   const JWT = location.search.substring(1);
   localStorage.setItem("accessToken", JWT);
-  history.push("/post-video");
+  history.push("/");
   window.location.reload(false);
   return (
     <div>

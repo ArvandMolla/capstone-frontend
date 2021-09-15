@@ -25,7 +25,7 @@ function Login({ history }) {
       .post("/user/login", credentials)
       .then((res) => {
         setJWT(res.data.accessToken);
-        history.push("/post-video");
+        history.push("/");
       })
       .catch((err) => console.log(err.message));
   };

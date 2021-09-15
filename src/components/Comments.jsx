@@ -4,12 +4,13 @@ import axiosInstance from "../util/axios";
 import jwt_decode from "jwt-decode";
 
 import { useState, useEffect } from "react";
+import { withRouter } from "react-router";
 
 const { TextArea } = Input;
 const accessToken = localStorage.getItem("accessToken");
-const decodedToken = jwt_decode(accessToken);
+const decodedToken = accessToken ? jwt_decode(accessToken) : null;
 
-function Comments({ comments, adId, fetchComments }) {
+function Comments({ comments, adId, fetchComments, isLoggedin, history }) {
   const [activeReply, setActiveReply] = useState(null);
   const [commentContent, setCommentContent] = useState(null);
 
@@ -65,12 +66,22 @@ function Comments({ comments, adId, fetchComments }) {
             <Comment
               actions={[
                 <>
-                  {elem1._id !== activeReply && (
+                  {elem1._id !== activeReply && isLoggedin && (
                     <span
                       id={elem1._id}
-                      onClick={(e) => setActiveReply(e.target.id)}
+                      onClick={(e) => {
+                        setActiveReply(e.target.id);
+                      }}
                     >
                       Reply
+                    </span>
+                  )}
+                  {!isLoggedin && (
+                    <span
+                      id={elem1._id}
+                      onClick={(e) => history.push("/login")}
+                    >
+                      Login to reply
                     </span>
                   )}
                   {elem1._id === activeReply && (
@@ -78,7 +89,7 @@ function Comments({ comments, adId, fetchComments }) {
                       Cancel
                     </span>
                   )}
-                  {elem1.sender._id === decodedToken._id && (
+                  {isLoggedin && elem1.sender._id === decodedToken._id && (
                     <span
                       id={elem1._id}
                       onClick={(e) => deleteComment(e.target.id)}
@@ -130,12 +141,22 @@ function Comments({ comments, adId, fetchComments }) {
                     <Comment
                       actions={[
                         <>
-                          {elem2._id !== activeReply && (
+                          {elem2._id !== activeReply && isLoggedin && (
                             <span
                               id={elem2._id}
-                              onClick={(e) => setActiveReply(e.target.id)}
+                              onClick={(e) => {
+                                setActiveReply(e.target.id);
+                              }}
                             >
                               Reply
+                            </span>
+                          )}
+                          {!isLoggedin && (
+                            <span
+                              id={elem2._id}
+                              onClick={(e) => history.push("/login")}
+                            >
+                              Login to reply
                             </span>
                           )}
                           {elem2._id === activeReply && (
@@ -143,7 +164,7 @@ function Comments({ comments, adId, fetchComments }) {
                               Cancel
                             </span>
                           )}
-                          {elem2.sender._id === decodedToken._id && (
+                          {isLoggedin && elem2.sender._id === decodedToken._id && (
                             <span
                               id={elem2._id}
                               onClick={(e) => deleteComment(e.target.id)}
@@ -201,16 +222,17 @@ function Comments({ comments, adId, fetchComments }) {
                             <Comment
                               actions={[
                                 <>
-                                  {elem3.sender._id === decodedToken._id && (
-                                    <span
-                                      id={elem3._id}
-                                      onClick={(e) =>
-                                        deleteComment(e.target.id)
-                                      }
-                                    >
-                                      Delete
-                                    </span>
-                                  )}
+                                  {isLoggedin &&
+                                    elem3.sender._id === decodedToken._id && (
+                                      <span
+                                        id={elem3._id}
+                                        onClick={(e) =>
+                                          deleteComment(e.target.id)
+                                        }
+                                      >
+                                        Delete
+                                      </span>
+                                    )}
                                 </>,
                               ]}
                               author={
@@ -245,7 +267,7 @@ function Comments({ comments, adId, fetchComments }) {
           );
         }
       })}
-      {!activeReply && (
+      {!activeReply && isLoggedin && (
         <div className="new-comment-container">
           <TextArea
             rows={4}
@@ -263,8 +285,13 @@ function Comments({ comments, adId, fetchComments }) {
           </Button>
         </div>
       )}
+      {!activeReply && !isLoggedin && (
+        <Button type="primary" onClick={() => history.push("/login")}>
+          Login to send a comment
+        </Button>
+      )}
     </div>
   );
 }
 
-export default Comments;
+export default withRouter(Comments);

@@ -184,6 +184,7 @@ function App({ history, location }) {
                   pushReqLabel={pushReqLabel}
                   setReqBrand={setReqBrand}
                   fetchFilteredAds={fetchFilteredAds}
+                  isLoggedin={isLoggedin}
                 />
               }
               isLoggedin={isLoggedin}
