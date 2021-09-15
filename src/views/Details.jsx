@@ -1,4 +1,5 @@
 import { Row, Col, Tag } from "antd";
+import Comments from "../components/Comments.jsx";
 import { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import RelatedAdCard from "../components/RelatedAdCard";
@@ -13,9 +14,11 @@ function Details({
 }) {
   const [adData, setAdData] = useState(null);
   const [relatedAdsData, setRelatedAdsData] = useState(null);
+  const [comments, setComments] = useState(null);
 
   useEffect(() => {
     fetchSingleAd(match.params.id);
+    fetchComments(match.params.id);
   }, []);
 
   useEffect(() => {
@@ -23,6 +26,13 @@ function Details({
       fetchRelatedAds();
     }
   }, [adData]);
+
+  const fetchComments = (id) => {
+    axiosInstance
+      .get(`/ad/${id}/comments`)
+      .then((res) => setComments(res.data))
+      .catch((error) => console.log(error.message));
+  };
 
   const fetchRelatedAds = () => {
     axiosInstance
@@ -80,6 +90,9 @@ function Details({
                   {adData.brand}
                 </Tag>
               )}
+            </div>
+            <div className="comments-container">
+              {comments && <Comments comments={comments} />}
             </div>
           </Col>
           <Col xs={24} sm={12} lg={6}>
