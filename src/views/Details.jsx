@@ -16,9 +16,11 @@ function Details({
   const [relatedAdsData, setRelatedAdsData] = useState(null);
   const [comments, setComments] = useState(null);
 
+  const adId = match.params.id;
+
   useEffect(() => {
-    fetchSingleAd(match.params.id);
-    fetchComments(match.params.id);
+    fetchSingleAd(adId);
+    fetchComments(adId);
   }, []);
 
   useEffect(() => {
@@ -92,7 +94,13 @@ function Details({
               )}
             </div>
             <div className="comments-container">
-              {comments && <Comments comments={comments} />}
+              {comments && (
+                <Comments
+                  comments={comments}
+                  adId={adId}
+                  fetchComments={fetchComments}
+                />
+              )}
             </div>
           </Col>
           <Col xs={24} sm={12} lg={6}>
@@ -107,6 +115,7 @@ function Details({
                     pushReqLabel={pushReqLabel}
                     setReqBrand={setReqBrand}
                     fetchFilteredAds={fetchFilteredAds}
+                    fetchComments={fetchComments}
                   />
                 ))}
             </Row>

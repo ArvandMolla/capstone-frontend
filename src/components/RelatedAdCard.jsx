@@ -12,6 +12,7 @@ const AdCard3 = ({
   pushReqLabel,
   setReqBrand,
   fetchFilteredAds,
+  fetchComments,
 }) => {
   const [collapsed, setCollapsed] = useState(true);
 
@@ -30,6 +31,7 @@ const AdCard3 = ({
           onClick={() => {
             history.push(`/details/${ad._id}`);
             fetchSingleAd(ad._id);
+            fetchComments(ad._id);
           }}
         ></video>
         <div className="card-footer">
