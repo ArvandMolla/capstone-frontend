@@ -160,6 +160,7 @@ const PostVideo = ({
           uploadedFile={uploadedFile}
           labels={labels}
           transcript={transcript}
+          setTranscript={setTranscript}
           brand={brand}
           reseter={reseter}
         />

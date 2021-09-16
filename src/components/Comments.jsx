@@ -7,15 +7,13 @@ import { useState, useEffect } from "react";
 import { withRouter } from "react-router";
 
 const { TextArea } = Input;
-const accessToken = localStorage.getItem("accessToken");
-const decodedToken = accessToken ? jwt_decode(accessToken) : null;
 
 function Comments({ comments, adId, fetchComments, isLoggedin, history }) {
   const [activeReply, setActiveReply] = useState(null);
   const [commentContent, setCommentContent] = useState(null);
 
   const accessToken = localStorage.getItem("accessToken");
-  const decodedToken = jwt_decode(accessToken);
+  const decodedToken = accessToken ? jwt_decode(accessToken) : null;
 
   const postComment = () => {
     if (commentContent) {
@@ -52,7 +50,6 @@ function Comments({ comments, adId, fetchComments, isLoggedin, history }) {
     setActiveReply(null);
     setCommentContent(null);
     fetchComments(adId);
-    message.success("Comment was posted successfully");
   };
 
   const cancelReply = () => {
@@ -309,9 +306,11 @@ function Comments({ comments, adId, fetchComments, isLoggedin, history }) {
         </div>
       )}
       {!activeReply && !isLoggedin && (
-        <Button type="primary" onClick={() => history.push("/login")}>
-          Login to send a comment
-        </Button>
+        <div className="login-for-comment">
+          <Button type="primary" onClick={() => history.push("/login")}>
+            Login to send a comment
+          </Button>
+        </div>
       )}
     </div>
   );

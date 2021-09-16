@@ -26,6 +26,7 @@ function Login({ history }) {
       .then((res) => {
         setJWT(res.data.accessToken);
         history.push("/");
+        window.location.reload(false);
       })
       .catch((err) => console.log(err.message));
   };

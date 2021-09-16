@@ -17,8 +17,8 @@ export default function VideoForm({
   transcript,
   brand,
   reseter,
+  setTranscript,
 }) {
-  const [editableStr, setEditableStr] = useState(null);
   const [videoTitle, setVideoTitle] = useState(null);
 
   const postAd = () => {
@@ -29,7 +29,7 @@ export default function VideoForm({
       const decodedToken = jwt_decode(accessToken);
       const adBody = {
         title: videoTitle,
-        transcript: editableStr,
+        transcript: transcript,
         labels,
         brand,
         videoUrl: uploadedFile.publicUrl,
@@ -44,7 +44,6 @@ export default function VideoForm({
         .post("/ad/post", adBody, { headers })
         .then((res) => {
           message.success(`Your ad was posted successfully`);
-          setEditableStr(null);
           setVideoTitle(null);
           reseter();
         })
@@ -81,12 +80,8 @@ export default function VideoForm({
                     onChange={(e) => setVideoTitle(e.target.value)}
                   />
                 </Form.Item>
-                {editableStr ? (
-                  <Paragraph editable={{ onChange: setEditableStr }}>
-                    {editableStr}
-                  </Paragraph>
-                ) : (
-                  <Paragraph editable={{ onChange: setEditableStr }}>
+                {transcript && (
+                  <Paragraph editable={{ onChange: setTranscript }}>
                     {transcript}
                   </Paragraph>
                 )}

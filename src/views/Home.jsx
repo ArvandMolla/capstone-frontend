@@ -1,4 +1,4 @@
-import AdCard3 from "../components/AdCard3.jsx";
+import AdCard4 from "../components/AdCard4.jsx";
 import { Row, Spin, Pagination } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
@@ -39,7 +39,7 @@ export default function Home({
           {homePageAds && homePageAds.length > 0 && (
             <Row gutter={24}>
               {homePageAds.map((elem) => (
-                <AdCard3
+                <AdCard4
                   ad={elem}
                   pushReqLabel={pushReqLabel}
                   setReqBrand={setReqBrand}

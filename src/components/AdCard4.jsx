@@ -5,24 +5,15 @@ import uniqid from "uniqid";
 import { withRouter } from "react-router-dom";
 
 const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
-  const [collapsed, setCollapsed] = useState(true);
-  const [elementHeight, setElementHeight] = useState(null);
-
-  useEffect(() => {
-    let height = document
-      .getElementById("labelsDiv")
-      .getBoundingClientRect().height;
-    console.log(height);
-  }, []);
-  const toggleCollapse = () => {
-    setCollapsed(!collapsed);
-  };
-
-  const getLabelsHeight = () => {};
+  const [expandedAd, setExpandeddAd] = useState(true);
 
   return (
     <Col className="gutter-row" xs={24} sm={12} md={8} lg={8} xl={6}>
-      <div className="adcard-back-div">
+      <div
+        className={
+          ad._id === expandedAd ? "adcard-back-div-expanded" : "adcard-back-div"
+        }
+      >
         <video
           className="video-thumb"
           width="100%"
@@ -36,20 +27,21 @@ const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
           </div>
           <div className="footer-tags">
             <div className="labels">
-              {ad.labels.length > 0 && (
-                <div className="first-tags" id="labelsDiv">
-                  {ad.labels.map((elem) => (
-                    <Tag
-                      color="green"
-                      onClick={() => pushReqLabel(elem)}
-                      key={uniqid()}
-                    >
-                      {elem}
-                    </Tag>
-                  ))}
-                  {getLabelsHeight()}
-                </div>
-              )}
+              {ad.labels.map((elem) => (
+                <Tag
+                  color="green"
+                  onClick={() => pushReqLabel(elem)}
+                  key={uniqid()}
+                >
+                  {elem}
+                </Tag>
+              ))}
+            </div>
+            <div className="collapse-arrow">
+              <DownOutlined
+                id={ad._id}
+                onClick={(e) => setExpandeddAd(e.target.id)}
+              />
             </div>
 
             <div className="brand">
@@ -60,21 +52,6 @@ const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
               )}
             </div>
           </div>
-          {ad.labels.length > 2 && (
-            <div
-              className={collapsed ? "second-tags no-display" : "second-tags"}
-            >
-              {ad.labels.slice(2).map((elem) => (
-                <Tag
-                  color="green"
-                  onClick={() => pushReqLabel(elem)}
-                  key={uniqid()}
-                >
-                  {elem}
-                </Tag>
-              ))}
-            </div>
-          )}
         </div>
       </div>
     </Col>

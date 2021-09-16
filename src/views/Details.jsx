@@ -1,5 +1,6 @@
 import { Row, Col, Tag } from "antd";
 import Comments from "../components/Comments.jsx";
+import ContactInfo from "../components/ContactInfo.jsx";
 import { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import RelatedAdCard from "../components/RelatedAdCard";
@@ -62,7 +63,7 @@ function Details({
               width="100%"
               controls
             ></video>
-            <h1>{adData.title}</h1>
+            <h1 className="detail-h1">{adData.title}</h1>
             <p className="datails-transcript">{adData.transcript}</p>
             <div className="details-labels">
               {adData.labels.length > 0 &&
@@ -94,6 +95,7 @@ function Details({
                 </Tag>
               )}
             </div>
+            <div>{adData && <ContactInfo user={adData.user} />}</div>
             <div className="comments-container">
               {comments && (
                 <Comments
