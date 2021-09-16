@@ -4,6 +4,7 @@ import LabelRender from "../components/LabelRender";
 import EditableTagGroup from "../components/LabelRender2";
 import BrandRender from "../components/BrandRender.jsx";
 import axiosInstance from "../util/axios";
+import jwt_decode from "jwt-decode";
 
 import { useState, useEffect } from "react";
 
@@ -24,16 +25,23 @@ export default function VideoForm({
     if (!videoTitle) {
       message.error(`Video title is required.`);
     } else {
+      const accessToken = localStorage.getItem("accessToken");
+      const decodedToken = jwt_decode(accessToken);
       const adBody = {
         title: videoTitle,
         transcript: editableStr,
         labels,
         brand,
         videoUrl: uploadedFile.publicUrl,
+        user: decodedToken._id,
+      };
+
+      const headers = {
+        Authorization: `Bearer ${accessToken}`,
       };
 
       axiosInstance
-        .post("/ad/post", adBody)
+        .post("/ad/post", adBody, { headers })
         .then((res) => {
           message.success(`Your ad was posted successfully`);
           setEditableStr(null);

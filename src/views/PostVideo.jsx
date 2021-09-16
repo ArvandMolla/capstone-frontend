@@ -151,6 +151,7 @@ const PostVideo = ({
     setTranscript(null);
     setEntityData(null);
     setBrand("");
+    window.location.reload(false);
   };
   return (
     <div>

@@ -29,6 +29,9 @@ function Register({ history }) {
       name,
       email,
       password,
+      avatar: `https://picsum.photos/id/${
+        Math.floor(Math.random() * (1084 - 1000)) + 1000
+      }/100/100`,
     };
     axiosInstance
       .post("/user/register", newUser)
