@@ -3,7 +3,7 @@ import Comments from "../components/Comments.jsx";
 import ContactInfo from "../components/ContactInfo.jsx";
 import { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import RelatedAdCard from "../components/RelatedAdCard";
+import RelatedAdCard2 from "../components/RelatedAdCard2";
 import axiosInstance from "../util/axios";
 
 function Details({
@@ -13,6 +13,7 @@ function Details({
   fetchFilteredAds,
   history,
   isLoggedin,
+  setAdTitle,
 }) {
   const [adData, setAdData] = useState(null);
   const [relatedAdsData, setRelatedAdsData] = useState(null);
@@ -48,7 +49,10 @@ function Details({
   const fetchSingleAd = (id) => {
     axiosInstance
       .get(`/ad/details/${id}`)
-      .then((res) => setAdData(res.data))
+      .then((res) => {
+        setAdData(res.data);
+        setAdTitle(res.data.title);
+      })
       .catch((error) => console.log(error.message));
   };
 
@@ -63,7 +67,7 @@ function Details({
               width="100%"
               controls
             ></video>
-            <h1 className="detail-h1">{adData.title}</h1>
+
             <p className="datails-transcript">{adData.transcript}</p>
             <div className="details-labels">
               {adData.labels.length > 0 &&
@@ -112,13 +116,10 @@ function Details({
             <Row>
               {relatedAdsData &&
                 relatedAdsData.map((elem) => (
-                  <RelatedAdCard
+                  <RelatedAdCard2
                     ad={elem}
                     key={elem._id}
                     fetchSingleAd={fetchSingleAd}
-                    pushReqLabel={pushReqLabel}
-                    setReqBrand={setReqBrand}
-                    fetchFilteredAds={fetchFilteredAds}
                     fetchComments={fetchComments}
                   />
                 ))}

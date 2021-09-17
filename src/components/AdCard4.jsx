@@ -4,16 +4,24 @@ import { useState, useEffect } from "react";
 import uniqid from "uniqid";
 import { withRouter } from "react-router-dom";
 
-const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
-  const [expandedAd, setExpandeddAd] = useState(true);
+const AdCard4 = ({ ad, pushReqLabel, setReqBrand, history }) => {
+  const [expanded, setExpanded] = useState(false);
+  const [labelsHeight, setLabelsHeight] = useState(false);
+
+  useEffect(() => {
+    heightCalculator();
+  }, []);
+
+  const heightCalculator = () => {
+    const elem = document.querySelector(".card-footer");
+    const height = elem.clientHeight;
+    console.log(height);
+    setLabelsHeight(height);
+  };
 
   return (
     <Col className="gutter-row" xs={24} sm={12} md={8} lg={8} xl={6}>
-      <div
-        className={
-          ad._id === expandedAd ? "adcard-back-div-expanded" : "adcard-back-div"
-        }
-      >
+      <div className="adcard-back-div">
         <video
           className="video-thumb"
           width="100%"
@@ -23,10 +31,10 @@ const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
         ></video>
         <div className="card-footer">
           <div className="video-title">
-            <p onClick={() => console.log("yes")}>{ad.title}</p>
+            <p>{ad.title}</p>
           </div>
-          <div className="footer-tags">
-            <div className="labels">
+          <div className={expanded ? "footer-tags-expanded" : "footer-tags"}>
+            <div className="labels" id="adLabels">
               {ad.labels.map((elem) => (
                 <Tag
                   color="green"
@@ -37,18 +45,23 @@ const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
                 </Tag>
               ))}
             </div>
-            <div className="collapse-arrow">
-              <DownOutlined
+            <div className="collapse-and-brand">
+              {/* {labelsHeight !== 31 && ( */}
+              <div
+                className="collapse-icon"
                 id={ad._id}
-                onClick={(e) => setExpandeddAd(e.target.id)}
-              />
-            </div>
+                onClick={(e) => setExpanded(!expanded)}
+              >
+                <DownOutlined />
+              </div>
+              {/* )} */}
 
-            <div className="brand">
               {ad.brand && (
-                <Tag color="purple" onClick={() => setReqBrand(ad.brand)}>
-                  {ad.brand}
-                </Tag>
+                <div className="brand">
+                  <Tag color="purple" onClick={() => setReqBrand(ad.brand)}>
+                    {ad.brand}
+                  </Tag>
+                </div>
               )}
             </div>
           </div>
@@ -58,4 +71,4 @@ const AdCard3 = ({ ad, pushReqLabel, setReqBrand, history }) => {
   );
 };
 
-export default withRouter(AdCard3);
+export default withRouter(AdCard4);

@@ -7,6 +7,7 @@ import Register from "./views/Register";
 import PostVideo from "./views/PostVideo";
 import Details from "./views/Details";
 import Filters from "./components/Filters.jsx";
+import DetailsTitle from "./components/DetailsTitle.jsx";
 import FromGoogle from "./components/FromGoogle.jsx";
 import { useState, useEffect } from "react";
 import axiosInstance from "./util/axios";
@@ -26,6 +27,7 @@ function App({ history, location }) {
   const [urlParams, setUrlParams] = useState("/ad");
   const [totalItems, setTotalItems] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [adTitle, setAdTitle] = useState(null);
 
   useEffect(() => {
     checkLogin();
@@ -185,8 +187,10 @@ function App({ history, location }) {
                   setReqBrand={setReqBrand}
                   fetchFilteredAds={fetchFilteredAds}
                   isLoggedin={isLoggedin}
+                  setAdTitle={setAdTitle}
                 />
               }
+              filters={<DetailsTitle adTitle={adTitle} />}
               isLoggedin={isLoggedin}
               setReqSearch={setReqSearch}
               reqSearch={reqSearch}

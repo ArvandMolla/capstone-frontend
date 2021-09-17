@@ -39,11 +39,14 @@ export default function Filters({
             {reqBrand}
           </Tag>
         )}
+        {reqLabels.length === 0 && !reqBrand && (
+          <h1 className="page-main-title">Recent videos from all categories</h1>
+        )}
       </div>
       {totalItems !== 0 && totalItems && (
         <div className="total-items">
           <p className="results">
-            Results: <span className="total-number">{totalItems}</span>{" "}
+            Total: <span className="total-number">{totalItems}</span>
           </p>
         </div>
       )}

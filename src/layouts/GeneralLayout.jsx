@@ -47,8 +47,6 @@ export default function GeneralLayout(props) {
       recognition.start();
 
       recognition.onresult = function (e) {
-        // document.getElementById("transcript").value =
-        //   e.results[0][0].transcript;
         if (e.results[0][0].transcript) {
           props.setReqSearch(e.results[0][0].transcript);
           setIsRecording(false);
@@ -83,9 +81,9 @@ export default function GeneralLayout(props) {
           <div className="search-frame">
             {isRecording && <div className="isRec"></div>}
             <Search
-              placeholder="explore videos ..."
-              size="large"
+              placeholder="Explore videos ..."
               className="search"
+              bordered={false}
               suffix={suffix}
               allowClear
               onSearch={() => props.urlChanger()}
@@ -93,6 +91,7 @@ export default function GeneralLayout(props) {
               onChange={(e) => {
                 props.setReqSearch(e.target.value);
               }}
+              className="search-box"
             />
           </div>
         </div>
