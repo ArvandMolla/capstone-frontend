@@ -159,6 +159,7 @@ const PostVideo = ({
         <VideoForm
           uploadedFile={uploadedFile}
           labels={labels}
+          setLabels={setLabels}
           transcript={transcript}
           setTranscript={setTranscript}
           brand={brand}

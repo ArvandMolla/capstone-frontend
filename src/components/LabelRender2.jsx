@@ -4,7 +4,7 @@ import { Component } from "react";
 
 class EditableTagGroup extends Component {
   state = {
-    tags: ["Unremovable", "Tag 2", "Tag 3"],
+    tags: this.props.labels,
     inputVisible: false,
     inputValue: "",
     editInputIndex: -1,
@@ -15,6 +15,7 @@ class EditableTagGroup extends Component {
     const tags = this.state.tags.filter((tag) => tag !== removedTag);
     console.log(tags);
     this.setState({ tags });
+    this.props.setLabels(tags);
   };
 
   showInput = () => {
@@ -37,6 +38,7 @@ class EditableTagGroup extends Component {
       inputVisible: false,
       inputValue: "",
     });
+    this.props.setLabels(tags);
   };
 
   handleEditInputChange = (e) => {
@@ -47,6 +49,7 @@ class EditableTagGroup extends Component {
     this.setState(({ tags, editInputIndex, editInputValue }) => {
       const newTags = [...tags];
       newTags[editInputIndex] = editInputValue;
+      this.props.setLabels(newTags);
 
       return {
         tags: newTags,
@@ -75,7 +78,7 @@ class EditableTagGroup extends Component {
               <Input
                 ref={this.saveEditInputRef}
                 key={tag}
-                size="small"
+                size="large"
                 className="tag-input"
                 value={editInputValue}
                 onChange={this.handleEditInputChange}
@@ -91,8 +94,9 @@ class EditableTagGroup extends Component {
             <Tag
               className="edit-tag"
               key={tag}
-              closable={index !== 0}
+              closable="true"
               onClose={() => this.handleClose(tag)}
+              color="green"
             >
               <span
                 onDoubleClick={(e) => {
@@ -123,7 +127,7 @@ class EditableTagGroup extends Component {
           <Input
             ref={this.saveInputRef}
             type="text"
-            size="small"
+            size="large"
             className="tag-input"
             value={inputValue}
             onChange={this.handleInputChange}

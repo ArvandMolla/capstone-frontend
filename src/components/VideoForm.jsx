@@ -1,7 +1,6 @@
 import { Row, Col, Input, Form, Button, Spin, message, Typography } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
-import LabelRender from "../components/LabelRender";
-import EditableTagGroup from "../components/LabelRender2";
+import LabelRender2 from "../components/LabelRender2";
 import BrandRender from "../components/BrandRender.jsx";
 import axiosInstance from "../util/axios";
 import jwt_decode from "jwt-decode";
@@ -18,6 +17,7 @@ export default function VideoForm({
   brand,
   reseter,
   setTranscript,
+  setLabels,
 }) {
   const [videoTitle, setVideoTitle] = useState(null);
 
@@ -66,30 +66,43 @@ export default function VideoForm({
           ></video>
         </Col>
         <Col span={12}>
-          {labels && transcript ? (
-            <div>
-              <Form layout="vertical">
-                <Form.Item
-                  label="Give it a title"
-                  required
-                  tooltip="Title shows up below your video in listings"
-                >
-                  <Input
-                    placeholder="Give your video a nice title ..."
-                    value={videoTitle}
-                    onChange={(e) => setVideoTitle(e.target.value)}
+          <>
+            {labels && (
+              <div>
+                <Form layout="vertical">
+                  <Form.Item
+                    label="Give it a title"
+                    required
+                    tooltip="Title shows up below your video in listings"
+                  >
+                    <Input
+                      placeholder="Give your video a nice title ..."
+                      value={videoTitle}
+                      onChange={(e) => setVideoTitle(e.target.value)}
+                      size="large"
+                    />
+                  </Form.Item>
+                </Form>
+                <div className="video-form-labels">
+                  <LabelRender2
+                    labels={labels}
+                    color="green"
+                    title="Labels"
+                    setLabels={setLabels}
                   />
-                </Form.Item>
-
-                <LabelRender labels={labels} color="green" title="Labels" />
+                </div>
+              </div>
+            )}
+            {transcript && (
+              <div>
+                <Paragraph
+                  editable={{ onChange: setTranscript }}
+                  className="post-video-transcript"
+                >
+                  {transcript}
+                </Paragraph>
 
                 <BrandRender brand={brand} color="purple" />
-                {transcript && (
-                  <Paragraph editable={{ onChange: setTranscript }}>
-                    {transcript}
-                  </Paragraph>
-                )}
-
                 <Form.Item>
                   <div className="submit-ad">
                     <Button type="primary" onClick={() => postAd()}>
@@ -97,16 +110,25 @@ export default function VideoForm({
                     </Button>
                   </div>
                 </Form.Item>
-              </Form>
-            </div>
-          ) : (
-            <div className="waiting">
-              <h2>Your video is being analyzed ...</h2>
-              <h3>It takes up to 1 minute</h3>
+              </div>
+            )}
 
-              <Spin indicator={antIcon} />
-            </div>
-          )}
+            {!labels && !transcript && (
+              <div className="waiting">
+                <h2>Your video is being analyzed ...</h2>
+                <h3>It takes up to 1 minute</h3>
+                <Spin indicator={antIcon} />
+              </div>
+            )}
+
+            {labels && !transcript && (
+              <div className="waiting">
+                <h2>Your video is being analyzed ...</h2>
+                <h3>It takes up to 1 minute</h3>
+                <Spin indicator={antIcon} />
+              </div>
+            )}
+          </>
         </Col>
       </Row>
     </div>
