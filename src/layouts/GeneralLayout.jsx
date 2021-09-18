@@ -65,8 +65,8 @@ export default function GeneralLayout(props) {
   };
   return (
     <div className="layout-main">
-      <TopNav isLoggedin={props.isLoggedin} />
       <div className="top">
+        <TopNav isLoggedin={props.isLoggedin} />
         <div className="search-container">
           <div className="big-logo-container">
             <img
@@ -91,7 +91,6 @@ export default function GeneralLayout(props) {
               onChange={(e) => {
                 props.setReqSearch(e.target.value);
               }}
-              className="search-box"
             />
           </div>
         </div>

@@ -80,19 +80,15 @@ export default function VideoForm({
                     onChange={(e) => setVideoTitle(e.target.value)}
                   />
                 </Form.Item>
+
+                <LabelRender labels={labels} color="green" title="Labels" />
+
+                <BrandRender brand={brand} color="purple" />
                 {transcript && (
                   <Paragraph editable={{ onChange: setTranscript }}>
                     {transcript}
                   </Paragraph>
                 )}
-
-                <LabelRender labels={labels} color="green" title="Labels" />
-                {/* <EditableTagGroup
-                  labels={labels}
-                  color="green"
-                  title="Labels"
-                /> */}
-                <BrandRender brand={brand} color="purple" />
 
                 <Form.Item>
                   <div className="submit-ad">
