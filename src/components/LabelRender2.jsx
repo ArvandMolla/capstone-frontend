@@ -100,15 +100,13 @@ class EditableTagGroup extends Component {
             >
               <span
                 onDoubleClick={(e) => {
-                  if (index !== 0) {
-                    this.setState(
-                      { editInputIndex: index, editInputValue: tag },
-                      () => {
-                        this.editInput.focus();
-                      }
-                    );
-                    e.preventDefault();
-                  }
+                  this.setState(
+                    { editInputIndex: index, editInputValue: tag },
+                    () => {
+                      this.editInput.focus();
+                    }
+                  );
+                  e.preventDefault();
                 }}
               >
                 {isLongTag ? `${tag.slice(0, 20)}...` : tag}

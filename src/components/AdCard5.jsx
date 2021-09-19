@@ -27,6 +27,7 @@ const AdCard5 = ({ ad, pushReqLabel, setReqBrand, history }) => {
   return (
     <Col className="gutter-row" xs={24} sm={12} md={8} lg={8} xl={6}>
       <div className="adcard-back-div">
+        <div className="play-logo"></div>
         <video
           className="video-thumb"
           width="100%"

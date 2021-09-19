@@ -12,7 +12,7 @@ const TopNav = (props) => {
     <div className="top-nav">
       <div
         className={
-          scroll < 150
+          scroll < 130
             ? "opacity-zero small-logo-container"
             : "small-logo-container"
         }
@@ -23,28 +23,17 @@ const TopNav = (props) => {
           className="logo"
         />
 
-        <h3>Buy and sale in 30 seconds!</h3>
+        <h3>Buy and sell in 30 seconds!</h3>
       </div>
 
       <div className="top-nav-menu-container">
-        <span
-          className="menu-item"
-          onClick={() => {
-            props.history.push("/");
-            // window.location.reload(false);
-          }}
-        >
-          Home
-        </span>
-        <span
-          className="menu-item"
-          onClick={() => {
-            props.history.push("/post-video");
-            // window.location.reload(false);
-          }}
-        >
-          Post your video
-        </span>
+        <a href="/">
+          <span className="menu-item">Home</span>
+        </a>
+        <a href="/post-video">
+          <span className="menu-item">Post your video</span>
+        </a>
+
         {props.isLoggedin ? (
           <span
             className="menu-item"
