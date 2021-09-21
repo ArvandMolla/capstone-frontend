@@ -18,6 +18,7 @@ export default function VideoForm({
   reseter,
   setTranscript,
   setLabels,
+  history,
 }) {
   const [videoTitle, setVideoTitle] = useState(null);
 

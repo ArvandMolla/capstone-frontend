@@ -8,6 +8,7 @@ import PostVideo from "./views/PostVideo";
 import Details from "./views/Details";
 import Filters from "./components/Filters.jsx";
 import DetailsTitle from "./components/DetailsTitle.jsx";
+import PostVideoTitle from "./components/PostVideoTitle.jsx";
 import FromGoogle from "./components/FromGoogle.jsx";
 import { useState, useEffect } from "react";
 import axiosInstance from "./util/axios";
@@ -168,6 +169,7 @@ function App({ history, location }) {
                   fetchFilteredAds={fetchFilteredAds}
                 />
               }
+              filters={<PostVideoTitle postVideoTitle="Post your video" />}
               isLoggedin={isLoggedin}
               setReqSearch={setReqSearch}
               reqSearch={reqSearch}

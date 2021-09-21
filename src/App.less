@@ -68,7 +68,7 @@
   align-items: center;
   flex-direction: column;
   margin-bottom: 20px;
-  z-index: 1;
+  z-index: 2;
 }
 
 .green {
@@ -174,9 +174,10 @@
   padding-top: 3px;
   padding-bottom: 5px;
 }
-// .video-form-labels .tag-input {
-//   height: 30px !important;
-// }
+.video-form-labels {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
 
 .labels-container span.labels-label {
   margin-bottom: 8px;
@@ -193,14 +194,6 @@
 .submit-ad button {
   width: 150px;
   height: 34px;
-}
-
-.adcard-back-div {
-  background-color: rgb(243, 245, 239);
-  margin-bottom: 24px;
-  border-radius: 5px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px -3px rgb(0 0 0 / 30%);
 }
 
 .card-footer {
@@ -272,9 +265,7 @@
   font-size: 1.05em;
   color: #79b100;
 }
-.video-thumb {
-  cursor: pointer;
-}
+
 .datails-transcript {
   font-size: 1.1em;
   margin-top: 20px;
@@ -302,7 +293,7 @@
   padding-bottom: 5px;
 }
 .home-main {
-  margin-bottom: 200px;
+  margin-bottom: 80px;
 }
 
 .home-main .pagination {
@@ -486,8 +477,11 @@
 }
 
 .post-video-transcript {
-  font-size: 1.1em;
-  margin-top: 15px;
+  font-size: 1.1em !important;
+}
+
+.ant-typography-edit-content {
+  font-size: 1.1em !important;
 }
 .ant-form-item-required {
   font-size: 1.1em !important;
@@ -532,17 +526,53 @@
 .top-nav-menu-container a {
   color: white;
 }
-.play-logo {
-  width: 100%;
-  height: 231px;
-  position: absolute;
-  top: 0px;
+.adcard-back-div {
+  background-color: rgb(243, 245, 239);
+  margin-bottom: 24px;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -3px rgb(0 0 0 / 30%);
+}
+.video-thumb {
+  z-index: 0;
+  min-height: 230px;
+  object-fit: cover;
 }
 
-.play-logo :hover {
+.video-thumb:hover {
+  opacity: 70%;
+}
+.video-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+.play-logo {
   width: 100%;
-  height: 231px;
+  height: 100%;
+  // background-color: blue;
   position: absolute;
-  top: 0px;
-  background-color: yellow;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0%;
+  z-index: 1;
+}
+
+.play-logo:hover {
+  opacity: 100%;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.376);
+}
+
+.icon-container {
+  width: 41px;
+  height: 41px;
+  background-color: rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+}
+.ant-upload-drag {
+  margin-top: 40px;
 }
