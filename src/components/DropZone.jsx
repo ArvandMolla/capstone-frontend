@@ -9,7 +9,7 @@ export default function DropZone({ setUploadedFile }) {
   const props = {
     name: "video",
     multiple: false,
-    action: "http://localhost:5000/api/video/upload",
+    action: process.env.REACT_APP_BACKEND_URL + "/api/video/upload",
 
     onChange(info) {
       const { status } = info.file;

@@ -79,7 +79,7 @@ function Login({ history }) {
           <Button
             icon={<GoogleLogo />}
             size="large"
-            href="http://localhost:5000/api/user/google-login"
+            href={process.env.REACT_APP_BACKEND_URL + "/api/user/google-login"}
           >
             Login with Google
           </Button>
