@@ -71,9 +71,10 @@ export default function GeneralLayout(props) {
         <div className="search-container">
           <div className="big-logo-container">
             <img
-              src="../img/30seconds-logo.png"
+              src="../img/30seconds-logo.jpg"
               alt="30seconds logo"
               className="big-logo"
+              onClick={() => props.history.push("/")}
             />
           </div>
           <div className="title">

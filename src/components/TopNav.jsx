@@ -18,9 +18,10 @@ const TopNav = (props) => {
         }
       >
         <img
-          src="../img/30seconds-logo.png"
+          src="../img/30seconds-logo.jpg"
           alt="30seconds logo"
           className="logo"
+          onClick={() => props.history.push("/")}
         />
 
         <h3>Buy and sell in 30 seconds!</h3>

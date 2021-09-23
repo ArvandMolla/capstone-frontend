@@ -21,7 +21,7 @@ export default function Home({
   }, [totalItems]);
 
   const paginationHandler = (totalItems) => {
-    const pageSize = 8;
+    const pageSize = 16;
     const numberOfPages = Math.ceil(totalItems / pageSize);
     setNumberOfPages(numberOfPages);
   };

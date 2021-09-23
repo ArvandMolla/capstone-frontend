@@ -35,7 +35,7 @@ function Login({ history }) {
     <div className="login-container">
       <div className="login-header">
         <img
-          src="../img/30seconds-logo.png"
+          src="../img/30seconds-logo.jpg"
           alt="30seconds logo"
           className="login-logo"
           onClick={() => {
