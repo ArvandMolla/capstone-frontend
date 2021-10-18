@@ -7,6 +7,8 @@ import Register from "./views/Register";
 import PostVideo from "./views/PostVideo";
 import Details from "./views/Details";
 import Filters from "./components/Filters.jsx";
+import MobileMenu from "./components/MobileMenu.jsx";
+
 import DetailsTitle from "./components/DetailsTitle.jsx";
 import PostVideoTitle from "./components/PostVideoTitle.jsx";
 import FromGoogle from "./components/FromGoogle.jsx";
@@ -123,6 +125,7 @@ function App({ history, location }) {
 
   return (
     <Router>
+      <MobileMenu />
       <Switch>
         <Route
           render={(routerProps) => (
