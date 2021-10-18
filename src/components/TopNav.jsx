@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { withRouter } from "react-router-dom";
+import MobileMenu from "./MobileMenu.jsx";
 
 const TopNav = (props) => {
   const [scroll, setScroll] = useState(0);
@@ -53,6 +54,9 @@ const TopNav = (props) => {
             Login
           </span>
         )}
+      </div>
+      <div className="top-nav-mobile">
+        <MobileMenu />
       </div>
     </div>
   );
