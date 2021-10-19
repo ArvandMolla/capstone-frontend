@@ -125,7 +125,6 @@ function App({ history, location }) {
 
   return (
     <Router>
-      <MobileMenu />
       <Switch>
         <Route
           render={(routerProps) => (
@@ -220,6 +219,7 @@ function App({ history, location }) {
           path="/from-google"
         />
       </Switch>
+      <MobileMenu isLoggedin={isLoggedin} />
     </Router>
   );
 }
