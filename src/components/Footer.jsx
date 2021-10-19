@@ -9,7 +9,7 @@ function Footer() {
           <span className="menu-item">Home</span>
         </a>
         <a href="/post-video">
-          <span className="menu-item">Post your video</span>
+          <span className="menu-item">Post Video</span>
         </a>
         <a href="https://no.linkedin.com/in/arvand-molla-a4a088213">
           <span className="menu-item">About Us</span>

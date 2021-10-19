@@ -40,7 +40,7 @@ export default function Filters({
           </Tag>
         )}
         {reqLabels.length === 0 && !reqBrand && (
-          <h1 className="page-main-title">Recent videos from all categories</h1>
+          <h1 className="page-main-title">Recent Videos</h1>
         )}
       </div>
       {totalItems !== 0 && totalItems && (
