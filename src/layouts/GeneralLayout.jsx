@@ -1,8 +1,6 @@
 import { Input, Space } from "antd";
-import { Button } from "antd";
 import TopNav from "../components/TopNav";
 import Footer from "../components/Footer";
-import Home from "../views/Home";
 import { AudioOutlined, AudioFilled } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 
